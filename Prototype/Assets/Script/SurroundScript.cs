@@ -1,0 +1,169 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+//          メモ          //
+
+// GameObject の circle1 と circle2　は　円判定のオブジェクトです。再生に関するフラグは、これを使う
+
+
+
+public class SurroundScript : MonoBehaviour
+{
+    // 再生や、囲むフラグのオブジェクト
+    [SerializeField] GameObject circle1 = default;      
+    [SerializeField] GameObject circle2 = default;
+
+    GameObject object1, object2;
+    string objectName;
+    string[] nameSplit = new string[2];
+    bool checkNum;
+    int num1 = 0, num2 = 0, num3 = 0;
+    bool roundFlag, nullFlag;
+
+    Vector3 positionA, positionB, positionC;
+    float radius1 = 0, radius2 = 0, point1 = 0, point2 = 0;
+
+    // Start is called before the first frame update
+
+    void Start()
+    {
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // 8の字の判定を消す
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            circle1.SetActive(false);
+            circle2.SetActive(false);
+            roundFlag = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "CircleFlag")
+        {
+            // オブジェクトを読み込む
+            objectName = other.name;
+            nameSplit = objectName.Split('_');
+
+            if (roundFlag == false)
+            {
+                checkNum = int.TryParse(nameSplit[1], out num1);
+                num2 = num1 / 2;
+                object1 = GameObject.Find("Cube_" + num1);
+                object2 = GameObject.Find("Cube_" + num2);
+
+                if (object1 == null || object2 == null)
+                {
+                    nullFlag = true;
+                }
+                else
+                {
+                    nullFlag = false;
+                }
+            }
+            else
+            {
+                checkNum = int.TryParse(nameSplit[1], out num3);
+                object1 = GameObject.Find("Cube_" + num3);
+                object2 = GameObject.Find("Cube_" + num1);
+
+                if (object1 == null || object2 == null)
+                {
+                    nullFlag = true;
+                }
+                else
+                {
+                    nullFlag = false;
+                }
+            }
+
+            if (nullFlag == false)
+            {
+                // 円の判定
+
+                positionA = object1.transform.position;
+                positionB = object2.transform.position;
+
+
+                // Radius of Circle                         円の半径を求める
+
+                positionC = positionA - positionB;
+                if (positionC.x < 0)
+                {
+                    positionC.x *= -1;
+                }
+                if (positionC.y < 0)
+                {
+                    positionC.y *= -1;
+                }
+                if (positionC.z < 0)
+                {
+                    positionC.z *= -1;
+                }
+
+
+                if (roundFlag == false)
+                {
+                    radius1 = (positionC.x * positionC.x) + (positionC.z * positionC.z);
+                    radius1 = Mathf.Sqrt(radius1);
+                }
+                else
+                {
+                    radius2 = (positionC.x * positionC.x) + (positionC.z * positionC.z);
+                    radius2 = Mathf.Sqrt(radius2);
+                }
+
+
+                // Point of Circle                          円の transform.position を求める
+
+                if (object1.transform.position.x < object2.transform.position.x)
+                {
+                    point1 = object1.transform.position.x;
+                }
+                else
+                {
+                    point1 = object2.transform.position.x;
+                }
+
+                if (object1.transform.position.z < object2.transform.position.z)
+                {
+                    point2 = object1.transform.position.z;
+                }
+                else
+                {
+                    point2 = object2.transform.position.z;
+                }
+
+                point1 += positionC.x / 2;
+                point2 += positionC.z / 2;
+
+
+                // Circle Transform
+
+                if (roundFlag == false)
+                {
+                    circle1.SetActive(true);
+                    circle1.transform.localScale = new Vector3(radius1, 1, radius1);
+                    circle1.transform.position = new Vector3(point1, 1, point2);
+                    roundFlag = true;
+                }
+                else
+                {
+                    circle2.SetActive(true);
+                    circle2.transform.localScale = new Vector3(radius2, 1, radius2);
+                    circle2.transform.position = new Vector3(point1, 1, point2);
+                    roundFlag = false;
+                }
+            }
+        }
+
+    }
+}
