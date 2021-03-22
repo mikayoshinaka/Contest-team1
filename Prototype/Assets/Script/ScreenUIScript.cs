@@ -11,13 +11,13 @@ public class ScreenUIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         nakamaText.GetComponent<Text>().text = "" + TemporaryFriendScript.friendCount;
-        nakamaBar.GetComponent<Slider>().value = TemporaryFriendScript.friendCount;
+        nakamaBar.GetComponent<Slider>().value = 25 - TemporaryFriendScript.friendCount; // ナカマ最大値 - friendCount
     }
 }
