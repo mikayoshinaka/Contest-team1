@@ -14,6 +14,8 @@ public class SurroundScript : MonoBehaviour
     // 再生や、囲むフラグのオブジェクト
     [SerializeField] GameObject circle1 = default;      
     [SerializeField] GameObject circle2 = default;
+    [SerializeField] GameObject exitRange1 = default;
+    [SerializeField] GameObject exitRange2 = default;
 
     GameObject object1, object2;
     string objectName;
@@ -26,6 +28,9 @@ public class SurroundScript : MonoBehaviour
     float radius1 = 0, radius2 = 0, point1 = 0, point2 = 0;
 
     public TempCooldownScript CooldownScript;
+
+    bool END; // 仮に作ります
+
 
     // Start is called before the first frame update
 
@@ -43,13 +48,16 @@ public class SurroundScript : MonoBehaviour
         {
             circle1.SetActive(false);
             circle2.SetActive(false);
+            exitRange1.SetActive(false);
+            exitRange2.SetActive(false);
             roundFlag = false;
+            END = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "CircleFlag" && exitFlag)
+        if (other.tag == "CircleFlag" && exitFlag　&& END == false)
         {
             // オブジェクトを読み込む
             objectName = other.name;
@@ -59,16 +67,18 @@ public class SurroundScript : MonoBehaviour
             {
                 checkNum = int.TryParse(nameSplit[1], out num1);
                 num2 = num1 / 2;
-                object1 = GameObject.Find("Cube_" + num1);
+                object1 = GameObject.Find("Cube_" + num1);  
                 object2 = GameObject.Find("Cube_" + num2);
                 objectPosition = object1.transform.position;
-
-                if (object1 == null || object2 == null)
+                
+                if (object1 == null || object2 == null || object1.name == "Cube_1")
                 {
                     nullFlag = true;
                 }
                 else
                 {
+                    exitRange1.SetActive(true);
+                    exitRange1.transform.position = object1.transform.position;
                     nullFlag = false;
                 }
             }
@@ -76,6 +86,7 @@ public class SurroundScript : MonoBehaviour
             {
                 checkNum = int.TryParse(nameSplit[1], out num3);
                 object1 = GameObject.Find("Cube_" + num3);
+
                 //object2 = GameObject.Find("Cube_" + num1);
 
                 if (object1 == null/* || object2 == null*/)
@@ -85,6 +96,8 @@ public class SurroundScript : MonoBehaviour
                 else
                 {
                     nullFlag = false;
+                    exitRange2.SetActive(true);
+                    exitRange2.transform.position = object1.transform.position;
                 }
             }
 
@@ -197,6 +210,9 @@ public class SurroundScript : MonoBehaviour
                     circle2.transform.position = new Vector3(point1, 1, point2);
                     //roundFlag = false;                                                        // OnTriggerEnter BUG
                     exitFlag = false;
+
+
+                    END = true; // 仮に作ります
                 }
             }
         }
@@ -209,5 +225,29 @@ public class SurroundScript : MonoBehaviour
         {
             exitFlag = true;
         }
+    }
+
+    public void DisbandFormation1()
+    {
+        circle1.SetActive(false);
+        exitRange1.SetActive(false);
+
+        roundFlag = false;
+        END = false;
+
+        circle2.SetActive(false);
+        exitRange2.SetActive(false);
+    }
+
+    public void DisbandFormation2()
+    {
+        circle2.SetActive(false);
+        exitRange2.SetActive(false);
+
+        roundFlag = false;
+        END = false;
+
+        circle1.SetActive(false);
+        exitRange1.SetActive(false);
     }
 }
