@@ -21,19 +21,20 @@ public class TemporaryFriendScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Joystick1Button2))
         {
-            if(friendCount < 25)
+            if(friendCount < 35)
             {              
                 object1 = friendParent.transform.Find("Cube (" + friendCount + ')').gameObject;
                 object1.SetActive(true);
                 friendCount++;
                 object1.transform.position = player.transform.position + new Vector3(2, 0, 2);
                 //Debug.Log("Friend " + friendCount);
+                SurroundExitScript.passFlag = true;
             }
         }
            
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
             if (friendCount > 0)
             {
@@ -41,6 +42,7 @@ public class TemporaryFriendScript : MonoBehaviour
                 object1 = friendParent.transform.Find("Cube (" + friendCount + ')').gameObject;
                 object1.SetActive(false);
                 //Debug.Log("Friend " + friendCount);
+                SurroundExitScript.passFlag = true;
             }
         }
     }

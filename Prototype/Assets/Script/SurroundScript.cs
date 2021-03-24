@@ -20,10 +20,12 @@ public class SurroundScript : MonoBehaviour
     string[] nameSplit = new string[2];
     bool checkNum;
     int num1 = 0, num2 = 0, num3 = 0;
-    bool roundFlag, nullFlag;
+    bool roundFlag, nullFlag, exitFlag = true;
 
-    Vector3 positionA, positionB, positionC;
+    Vector3 positionA, positionB, positionC, objectPosition;
     float radius1 = 0, radius2 = 0, point1 = 0, point2 = 0;
+
+    public TempCooldownScript CooldownScript;
 
     // Start is called before the first frame update
 
@@ -37,7 +39,7 @@ public class SurroundScript : MonoBehaviour
     {
         // 8の字の判定を消す
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button3))
         {
             circle1.SetActive(false);
             circle2.SetActive(false);
@@ -47,7 +49,7 @@ public class SurroundScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "CircleFlag")
+        if (other.tag == "CircleFlag" && exitFlag)
         {
             // オブジェクトを読み込む
             objectName = other.name;
@@ -59,6 +61,7 @@ public class SurroundScript : MonoBehaviour
                 num2 = num1 / 2;
                 object1 = GameObject.Find("Cube_" + num1);
                 object2 = GameObject.Find("Cube_" + num2);
+                objectPosition = object1.transform.position;
 
                 if (object1 == null || object2 == null)
                 {
@@ -69,13 +72,13 @@ public class SurroundScript : MonoBehaviour
                     nullFlag = false;
                 }
             }
-            else
+            else if(TempCooldownScript.cooldown == false && roundFlag)
             {
                 checkNum = int.TryParse(nameSplit[1], out num3);
                 object1 = GameObject.Find("Cube_" + num3);
-                object2 = GameObject.Find("Cube_" + num1);
+                //object2 = GameObject.Find("Cube_" + num1);
 
-                if (object1 == null || object2 == null)
+                if (object1 == null/* || object2 == null*/)
                 {
                     nullFlag = true;
                 }
@@ -90,7 +93,14 @@ public class SurroundScript : MonoBehaviour
                 // 円の判定
 
                 positionA = object1.transform.position;
-                positionB = object2.transform.position;
+                if(roundFlag)
+                {
+                    positionB = objectPosition;
+                }
+                else
+                {
+                    positionB = object2.transform.position;
+                }
 
 
                 // Radius of Circle                         円の半径を求める
@@ -115,7 +125,7 @@ public class SurroundScript : MonoBehaviour
                     radius1 = (positionC.x * positionC.x) + (positionC.z * positionC.z);
                     radius1 = Mathf.Sqrt(radius1);
                 }
-                else
+                else if (TempCooldownScript.cooldown == false && roundFlag)
                 {
                     radius2 = (positionC.x * positionC.x) + (positionC.z * positionC.z);
                     radius2 = Mathf.Sqrt(radius2);
@@ -123,23 +133,45 @@ public class SurroundScript : MonoBehaviour
 
 
                 // Point of Circle                          円の transform.position を求める
-
-                if (object1.transform.position.x < object2.transform.position.x)
+                if (roundFlag == false)
                 {
-                    point1 = object1.transform.position.x;
+                    if (object1.transform.position.x < object2.transform.position.x)
+                    {
+                        point1 = object1.transform.position.x;
+                    }
+                    else
+                    {
+                        point1 = object2.transform.position.x;
+                    }
+
+                    if (object1.transform.position.z < object2.transform.position.z)
+                    {
+                        point2 = object1.transform.position.z;
+                    }
+                    else
+                    {
+                        point2 = object2.transform.position.z;
+                    }
                 }
                 else
                 {
-                    point1 = object2.transform.position.x;
-                }
+                    if (object1.transform.position.x < objectPosition.x)
+                    {
+                        point1 = object1.transform.position.x;
+                    }
+                    else
+                    {
+                        point1 = objectPosition.x;
+                    }
 
-                if (object1.transform.position.z < object2.transform.position.z)
-                {
-                    point2 = object1.transform.position.z;
-                }
-                else
-                {
-                    point2 = object2.transform.position.z;
+                    if (object1.transform.position.z < objectPosition.z)
+                    {
+                        point2 = object1.transform.position.z;
+                    }
+                    else
+                    {
+                        point2 = objectPosition.z;
+                    }
                 }
 
                 point1 += positionC.x / 2;
@@ -154,16 +186,28 @@ public class SurroundScript : MonoBehaviour
                     circle1.transform.localScale = new Vector3(radius1, 1, radius1);
                     circle1.transform.position = new Vector3(point1, 1, point2);
                     roundFlag = true;
+                    exitFlag = false;
+                    CooldownScript.StartCooldown();
+
                 }
-                else
+                else if (TempCooldownScript.cooldown == false && roundFlag)
                 {
                     circle2.SetActive(true);
                     circle2.transform.localScale = new Vector3(radius2, 1, radius2);
                     circle2.transform.position = new Vector3(point1, 1, point2);
-                    roundFlag = false;
+                    //roundFlag = false;                                                        // OnTriggerEnter BUG
+                    exitFlag = false;
                 }
             }
         }
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "CircleFlag")
+        {
+            exitFlag = true;
+        }
     }
 }
