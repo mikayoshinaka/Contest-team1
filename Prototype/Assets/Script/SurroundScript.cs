@@ -28,15 +28,16 @@ public class SurroundScript : MonoBehaviour
     float radius1 = 0, radius2 = 0, point1 = 0, point2 = 0;
 
     public TempCooldownScript CooldownScript;
+    public DetectInsideScript DetectInside;
 
-    bool END; // 仮に作ります
+    public static bool END; // 仮に作ります
 
 
     // Start is called before the first frame update
 
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -52,6 +53,11 @@ public class SurroundScript : MonoBehaviour
             exitRange2.SetActive(false);
             roundFlag = false;
             END = false;
+
+            // バグと調整用
+            circle1.transform.position += new Vector3(0, 0, 10);
+            circle2.transform.position += new Vector3(0, 0, 10);
+            DetectInside.BloomHalt();
         }
     }
 
@@ -71,7 +77,7 @@ public class SurroundScript : MonoBehaviour
                 object2 = GameObject.Find("Cube_" + num2);
                 objectPosition = object1.transform.position;
                 
-                if (object1 == null || object2 == null || object1.name == "Cube_1")
+                if (object1 == null || object2 == null || object1.name == "Cube_1" /* 最初のナカマ */)
                 {
                     nullFlag = true;
                 }
@@ -237,17 +243,24 @@ public class SurroundScript : MonoBehaviour
 
         circle2.SetActive(false);
         exitRange2.SetActive(false);
+        
+        // バグと調整用
+        circle1.transform.position += new Vector3(0, 0, 10);
+        circle2.transform.position += new Vector3(0, 0, 10);
+        DetectInside.BloomHalt();
     }
 
-    public void DisbandFormation2()
-    {
-        circle2.SetActive(false);
-        exitRange2.SetActive(false);
+    //public void DisbandFormation2()
+    //{
+    //    circle2.SetActive(false);
+    //    exitRange2.SetActive(false);
 
-        roundFlag = false;
-        END = false;
+    //    roundFlag = false;
+    //    END = false;
 
-        circle1.SetActive(false);
-        exitRange1.SetActive(false);
-    }
+    //    circle1.SetActive(false);
+    //    exitRange1.SetActive(false);
+    //    DetectInside.BloomHalt();
+        
+    //}
 }

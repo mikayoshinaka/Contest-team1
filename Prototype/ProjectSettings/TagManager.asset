@@ -7,6 +7,11 @@ TagManager:
   - CircleFlag
   - Tail
   - ExitRange
+  - Fellow
+  - Under
+  - Death
+  - mushroom
+  - flower
   layers:
   - Default
   - TransparentFX

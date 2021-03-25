@@ -34,11 +34,11 @@ public class DetectTailScript : MonoBehaviour
 
         if (other.tag == "Player" || other.tag == "CircleFlag")
         {
-            if (exitRange.name == "ExitRange1")
+            if (exitRange.name == "ExitRange1" && ExitFormationScript.countdown1)
             {
                 myExitFormationScript.CountdownReset1();
             }
-            else if (exitRange.name == "ExitRange2")
+            else if (exitRange.name == "ExitRange2" && ExitFormationScript.countdown2)
             {
                 myExitFormationScript.CountdownReset2();
             }
