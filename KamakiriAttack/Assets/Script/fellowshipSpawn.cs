@@ -30,12 +30,17 @@ public class fellowshipSpawn : MonoBehaviour
     //まずどのオブジェクトか取得し、アニメーションを開始させる。
     //tag判定でアニメーション判別
 
+    //アスビ用
+    GameObject tail;
+
     Animator animator;
     AnimatorStateInfo stateInfo;
     void Start()
     {
         startSpawn = true;
 
+        //アスビ用
+        tail = GameObject.Find("Tail");
     }
 
     void Update()
@@ -80,7 +85,7 @@ public class fellowshipSpawn : MonoBehaviour
 
 
         //Spawn=trueでリスポーン処理開始
-        if (start)
+        if (start && InsideTriggerScript.bloom)
         {
 
             if (this.gameObject.CompareTag("flower"))
@@ -112,6 +117,12 @@ public class fellowshipSpawn : MonoBehaviour
                 {   //1
                     object1 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
                     followobject1 = friendParent.transform.Find("Cube (" + (TemporaryFriendScript.friendCount - 1) + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object1.transform;
+                    tail.transform.position = object1.transform.position;
+                    //ここまで
+
                     object1.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object1.transform.position = this.transform.position + new Vector3(0, 2, 0);
@@ -119,6 +130,12 @@ public class fellowshipSpawn : MonoBehaviour
                 if (TemporaryFriendScript.friendCount == newNum + 1 && spawnTime < 1.8f)
                 {   //2
                     object2 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object2.transform;
+                    tail.transform.position = object2.transform.position;
+                    //ここまで
+
                     object2.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object2.transform.position = this.transform.position + new Vector3(0, 2, 0);
@@ -126,6 +143,12 @@ public class fellowshipSpawn : MonoBehaviour
                 if (TemporaryFriendScript.friendCount == newNum + 2 && spawnTime < 1.6f)
                 {   //3
                     object3 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object3.transform;
+                    tail.transform.position = object3.transform.position;
+                    //ここまで
+
                     object3.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object3.transform.position = this.transform.position + new Vector3(0, 1, 2);
@@ -159,6 +182,12 @@ public class fellowshipSpawn : MonoBehaviour
                 {   //1
                     object1 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
                     followobject1 = friendParent.transform.Find("Cube (" + (TemporaryFriendScript.friendCount - 1) + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object1.transform;
+                    tail.transform.position = object1.transform.position;
+                    //ここまで
+
                     object1.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object1.transform.position = this.transform.position + new Vector3(0, 2, 0);
@@ -166,6 +195,12 @@ public class fellowshipSpawn : MonoBehaviour
                 if (TemporaryFriendScript.friendCount == newNum + 1 && spawnTime < 1.8f)
                 {   //2
                     object2 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object2.transform;
+                    tail.transform.position = object2.transform.position;
+                    //ここまで
+
                     object2.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object2.transform.position = this.transform.position + new Vector3(0, 2, 0);
@@ -173,6 +208,12 @@ public class fellowshipSpawn : MonoBehaviour
                 if (TemporaryFriendScript.friendCount == newNum + 2 && spawnTime < 1.6f)
                 {   //3
                     object3 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object3.transform;
+                    tail.transform.position = object3.transform.position;
+                    //ここまで
+
                     object3.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object3.transform.position = this.transform.position + new Vector3(0, 1, 2);
@@ -180,6 +221,12 @@ public class fellowshipSpawn : MonoBehaviour
                 if (TemporaryFriendScript.friendCount == newNum + 3 && spawnTime < 1.4f)
                 {   //4
                     object4 = friendParent.transform.Find("Cube (" + TemporaryFriendScript.friendCount + ')').gameObject;
+
+                    //アスビ用
+                    tail.transform.parent = object4.transform;
+                    tail.transform.position = object4.transform.position;
+                    //ここまで
+
                     object4.SetActive(true);
                     TemporaryFriendScript.friendCount++;
                     object4.transform.position = this.transform.position + new Vector3(0, 1, 2);

@@ -47,27 +47,27 @@ public class ExitFormationScript : MonoBehaviour
     {
         timer1 = 0;
         countdown1 = true;
-        //Debug.Log("Start");
+        Debug.Log("Countdown 1 Start");
     }
 
     public void CountdownStart2()
     {
         timer2 = 0;
         countdown2 = true;
-        //Debug.Log("Start");
+        Debug.Log("Countdown 2 Start");
     }
 
     public void CountdownReset1()
     {
         timer1 = 0;
         countdown1 = false;
-        //Debug.Log("Reset");
+        Debug.Log("Countdown 1 Reset");
     }
 
     public void CountdownReset2()
     {
         timer2 = 0;
         countdown2 = false;
-        //Debug.Log("Reset");
+        Debug.Log("Countdown 2 Reset");
     }
 }

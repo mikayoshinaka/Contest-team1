@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("speed" + speed * (float)Time.deltaTime * gear * new Vector3(0.1f, 0, 0));
+        //Debug.Log("speed" + speed * (float)Time.deltaTime * gear * new Vector3(0.1f, 0, 0));
 
 
         if (Input.GetAxis("Horizontal") > 0)

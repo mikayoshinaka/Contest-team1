@@ -32,7 +32,7 @@ public class DetectTailScript : MonoBehaviour
             }
         }
 
-        if (other.tag == "Player" || other.tag == "CircleFlag")
+        if ((other.tag == "Player" || other.tag == "CircleFlag") && other.tag != "Tail")
         {
             if (exitRange.name == "ExitRange1" && ExitFormationScript.countdown1)
             {

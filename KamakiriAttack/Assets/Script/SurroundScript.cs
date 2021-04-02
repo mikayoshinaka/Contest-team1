@@ -54,10 +54,13 @@ public class SurroundScript : MonoBehaviour
             roundFlag = false;
             END = false;
 
+            InsideTriggerScript.circle1 = false;
+            InsideTriggerScript.circle2 = false;
+
             // バグと調整用
-            circle1.transform.position += new Vector3(0, 0, 10);
-            circle2.transform.position += new Vector3(0, 0, 10);
-            DetectInside.BloomHalt();
+            //circle1.transform.position += new Vector3(0, 0, 10);
+            //circle2.transform.position += new Vector3(0, 0, 10);
+            //DetectInside.BloomHalt();
         }
     }
 
@@ -243,11 +246,14 @@ public class SurroundScript : MonoBehaviour
 
         circle2.SetActive(false);
         exitRange2.SetActive(false);
-        
+
+        InsideTriggerScript.circle1 = false;
+        InsideTriggerScript.circle2 = false;
+
         // バグと調整用
-        circle1.transform.position += new Vector3(0, 0, 10);
-        circle2.transform.position += new Vector3(0, 0, 10);
-        DetectInside.BloomHalt();
+        //circle1.transform.position += new Vector3(0, 0, 10);
+        //circle2.transform.position += new Vector3(0, 0, 10);
+        //DetectInside.BloomHalt();
     }
 
     //public void DisbandFormation2()

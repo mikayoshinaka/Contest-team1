@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class InsideTriggerScript : MonoBehaviour
 {
-    public static int bloomCheck = 0;
+    //public static int bloomCheck = 0;
     // Start is called before the first frame update
+
+    public static bool circle1, circle2;
+    public static bool bloom;
+
     void Start()
     {
         
@@ -14,47 +18,56 @@ public class InsideTriggerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (circle1 && circle2)
+        {
+            bloom = true;
+            Debug.Log("Bloom");
+        }
+        else
+        {
+            bloom = false;
+        }
     }
-     private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "flower")
+        if(this.gameObject.name == "Circle1")
         {
-            if (bloomCheck < 2)
+            if(other.tag == "flower" || other.tag == "mushroom")
             {
-                Debug.Log(bloomCheck);
-                bloomCheck++;
-                Debug.Log(bloomCheck);
+                circle1 = true;
+                Debug.Log("Circle 1 = " + circle1);
             }
         }
 
-        if (other.tag == "mushroom")
+        if (this.gameObject.name == "Circle2")
         {
-            if (bloomCheck < 2)
+            if (other.tag == "flower" || other.tag == "mushroom")
             {
-                Debug.Log(bloomCheck);
-                bloomCheck++;
-                Debug.Log(bloomCheck);
+                circle2 = true;
+                Debug.Log("Circle 2 = " + circle2);
             }
         }
-
-        //if (other.tag == "flower")
-        //{
-        //    if(object1 == false)
-        //    {
-        //        object1 = true;
-        //        Debug.Log("object1 true");
-        //    }
-        //}
-
-        //if (other.tag == "mushroom")
-        //{
-        //    if (object1 == false)
-        //    {
-        //        object2 = true;
-        //        Debug.Log("object2 true");
-        //    }
-        //}
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (this.gameObject.name == "Circle1")
+        {
+            if (other.gameObject.tag == "flower" || other.gameObject.tag == "mushroom")
+            {
+                circle1 = false;
+                Debug.Log("Circle 1 = " + circle1);
+            }
+        }
+
+        if (this.gameObject.name == "Circle2")
+        {
+            if (other.gameObject.tag == "flower" || other.gameObject.tag == "mushroom")
+            {
+                circle2 = false;
+                Debug.Log("Circle 2 = " + circle2);
+            }
+        }
+    }
 }

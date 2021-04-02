@@ -9,8 +9,8 @@ public class DetectInsideScript : MonoBehaviour
     //int bloomCheck = 0;
     //bool object1, object2;
 
-    bool blooming, halt;
-    public static bool start;
+    //bool blooming, halt;
+    //public static bool start;
     void Start()
     {
         
@@ -19,6 +19,16 @@ public class DetectInsideScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
+
+
+
+
+
+
+
         //if(blooming == false && object1 && object2)
         //{
         //    Debug.Log("Bloom Start");
@@ -33,29 +43,29 @@ public class DetectInsideScript : MonoBehaviour
         //    blooming = false;
         //}
 
-        if (blooming == false && InsideTriggerScript.bloomCheck == 2)
-        {
-            start = true;
-            blooming = true;
-        }
-        else if (halt && InsideTriggerScript.bloomCheck != 2)
-        {
-            start = false;
-            blooming = false;
-            halt = false;
-            InsideTriggerScript.bloomCheck = 0;
-        }
+        //if (blooming == false && InsideTriggerScript.bloomCheck == 2)
+        //{
+        //    start = true;
+        //    blooming = true;
+        //}
+        //else if (halt && InsideTriggerScript.bloomCheck != 2)
+        //{
+        //    start = false;
+        //    blooming = false;
+        //    halt = false;
+        //    InsideTriggerScript.bloomCheck = 0;
+        //}
     } 
 
-    public void BloomHalt()
-    {
-        Debug.Log("Bloom Halt");
-        halt = true;
-        InsideTriggerScript.bloomCheck = 0;
-        Debug.Log(InsideTriggerScript.bloomCheck);
+    //public void BloomHalt()
+    //{
+    //    Debug.Log("Bloom Halt");
+    //    halt = true;
+    //    InsideTriggerScript.bloomCheck = 0;
+    //    Debug.Log(InsideTriggerScript.bloomCheck);
 
 
-        //object1 = false;
-        //object2 = false;
-    }
+    //    //object1 = false;
+    //    //object2 = false;
+    //}
 }
