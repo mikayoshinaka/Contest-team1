@@ -15,15 +15,18 @@ public class A03RotateCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = targetObject.transform.position + initiateDistance;
+       
 
         if(Input.GetAxis("Horizontal2") >= 1)
         {
             transform.RotateAround(targetObject.transform.position, new Vector3(0, 1, 0), 0.5f);
+            initiateDistance = transform.position - targetObject.transform.position;
         }
         if (Input.GetAxis("Horizontal2") <= -1)
         {
             transform.RotateAround(targetObject.transform.position, new Vector3(0, 1, 0), -0.5f);
+            initiateDistance = transform.position - targetObject.transform.position;
         }
+        transform.position = targetObject.transform.position + initiateDistance;
     }
 }

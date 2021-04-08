@@ -8,7 +8,7 @@ public class A02PositionUpdate : MonoBehaviour
     Vector3[] position = new Vector3[100];
     int setCounter = 0;
 
-    public float waitTime = 0.2f;   // 記録の間隔　sec
+    float waitTime = 1.5f;   // 記録の間隔　sec
     private float timer = 0.0f;
 
     void Start()
