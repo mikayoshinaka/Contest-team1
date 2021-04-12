@@ -15,7 +15,7 @@ public class ExitFormationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeLimit = 1f;
+        timeLimit = 0.75f;
     }
 
     // Update is called once per frame
@@ -47,27 +47,33 @@ public class ExitFormationScript : MonoBehaviour
     {
         timer1 = 0;
         countdown1 = true;
-        //Debug.Log("Start");
+        //Debug.Log("Countdown 1 Start");
+
+        if(SurroundScript.tailChase == false && !SurroundScript.END)
+        {
+            //Debug.Log("TAIL TRUE");
+            SurroundScript.tailChase = true;
+        }
     }
 
     public void CountdownStart2()
     {
         timer2 = 0;
         countdown2 = true;
-        //Debug.Log("Start");
+        //Debug.Log("Countdown 2 Start");
     }
 
     public void CountdownReset1()
     {
         timer1 = 0;
         countdown1 = false;
-        //Debug.Log("Reset");
+        //Debug.Log("Countdown 1 Reset");
     }
 
     public void CountdownReset2()
     {
         timer2 = 0;
         countdown2 = false;
-        //Debug.Log("Reset");
+        //Debug.Log("Countdown 2 Reset");
     }
 }

@@ -73,7 +73,7 @@ public class HanakamakiriScript : MonoBehaviour
                 }
                 else if (actionTime >= 2.0f && actionTime <= 2.5f)
                 {
-                    if (dis >= 5.0f)
+                    if (dis >= 30.0f)
                     {
                         if (instantAngle == false)
                         {
